@@ -493,10 +493,10 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "black" },
-    { name = "isort" },
-    { name = "pre-commit" },
-    { name = "ruff" },
+    { name = "black", specifier = ">=25.9.0" },
+    { name = "isort", specifier = ">=7.0.0" },
+    { name = "pre-commit", specifier = ">=4.3.0" },
+    { name = "ruff", specifier = ">=0.14.3" },
 ]
 
 [[package]]
