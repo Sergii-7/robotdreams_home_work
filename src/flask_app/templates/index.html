@@ -23,6 +23,7 @@
                     <input type="date" class="form-control" id="sale_date" name="sale_date" required>
                 </div>
                 <br>
+                <button type="submit" class="btn btn-primary">Отримати звіт JSON</button>
                 <div style="color: green; font-weight: bold; margin-top: 10px;"></div>
                 {% if data.msg %}
                 <div style="color: red; font-weight: bold; margin-top: 10px;">{{ data.msg | safe }}</div>
@@ -43,6 +44,7 @@
                     <input type="date" class="form-control" id="sale_date_stg" name="sale_date_stg" required>
                 </div>
                 <br>
+                <button type="submit" class="btn btn-primary">Отримати звіт STG</button>
                 <div style="color: green; font-weight: bold; margin-top: 10px;"></div>
                 {% if data.msg_stg %}
                 <div style="color: red; font-weight: bold; margin-top: 10px;">{{ data.msg_stg | safe }}</div>
@@ -52,12 +54,6 @@
         </div>
     </div>
     <br>
-    <!-- Кнопка для відправлення форми -->
-    <form action="/" method="POST" onsubmit="return validateFormReport()">
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Отримати звіт</button>
-        </div>
-    </form>
 </main>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

@@ -17,6 +17,12 @@ if not AUTH_TOKEN:
     logger.error("AUTH_TOKEN environment variable must be set")
 
 
+@app.route("/health", methods=["GET"])
+def health_check() -> flask_typing.ResponseReturnValue:
+    """Проста перевірка стану сервісу"""
+    return jsonify({"status": "ok"}), 200
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     """Main page to getting the Excel file."""
@@ -28,11 +34,14 @@ def home():
         "page": "home",
         "form": form,
         "msg": None,
+        "msg_stg": None,
     }
     if form.validate_on_submit():
         sale_date = form.data.get("sale_date")
-        print(sale_date)
-        if sale_date:
+        sale_date_stg = form.data.get("sale_date_stg")
+        print(type(sale_date), sale_date)
+        print(type(sale_date_stg), sale_date_stg)
+        if sale_date or sale_date_stg:
             try:
                 # TODO: Виклик бізнес-логіки для отримання JSON файлу
                 json_file = None
@@ -47,15 +56,7 @@ def home():
                 msg = str(e)
                 logger.error(f"Error processing date {sale_date}: {msg}")
                 data["msg"] = f"Сталося помилка:<p>{msg}</p>"
-        else:
-            data["msg"] = f"Немає даних за {sale_date}."
     return render_template(template_name_or_list="index.html", data=data)
-
-
-@app.route("/health", methods=["GET"])
-def health_check() -> flask_typing.ResponseReturnValue:
-    """Проста перевірка стану сервісу"""
-    return jsonify({"status": "ok"}), 200
 
 
 @app.route("/v1/job1", methods=["POST"])

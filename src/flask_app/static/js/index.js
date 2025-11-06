@@ -9,10 +9,10 @@ function validateFormReport() {
         alert("Помилка: Будь ласка, вкажіть хоча б одну дату!");
         return false; // Блокує відправлення форми
     }
+    const today = new Date();
+    today.setHours(23, 59, 59, 0); // Встановлюємо час сьогоднішньої дати на кінець дня
     if (saleDate) {
         const selectedDate = new Date(saleDate);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Встановлюємо час сьогоднішньої дати на початок дня
         if (selectedDate > today) {
             alert("Помилка: Дата не може бути в майбутньому!");
             return false; // Блокує відправлення форми
@@ -20,8 +20,6 @@ function validateFormReport() {
     }
     if (saleDateStg) {
         const selectedDateStg = new Date(saleDateStg);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Встановлюємо час сьогоднішньої дати на початок дня
         if (selectedDateStg > today) {
             alert("Помилка: Дата не може бути в майбутньому!");
             return false; // Блокує відправлення форми

@@ -12,6 +12,10 @@ FILE_LOG = os.path.join(LOGS_DIR, "app.log")
 # Flask App data
 PORT = 8081
 DEBUG_MODE = True
+if DEBUG_MODE:
+    HOST = "localhost"
+else:
+    HOST = "0.0.0.0"
 STATIC_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/static")
 TEMPLATE_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/templates")
 FILE_STORAGE = os.path.join(PROJECT_ROOT, "src/file_storage")
