@@ -10,6 +10,10 @@ LOGS_DIR = os.path.join(PROJECT_ROOT, "logs")
 FILE_LOG = os.path.join(LOGS_DIR, "app.log")
 
 # Flask App data
-STATIC_FOLDER = os.path.join(PROJECT_ROOT, "app/static")
-TEMPLATE_FOLDER = os.path.join(PROJECT_ROOT, "app/templates")
-# DIR_JSON_DATA = os.path.join(PROJECT_ROOT, "service/json_data")
+PORT = 8081
+DEBUG_MODE = True
+STATIC_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/static")
+TEMPLATE_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/templates")
+FILE_STORAGE = os.path.join(PROJECT_ROOT, "src/file_storage")
+SECRET_KEY = os.environ.get("SECRET_KEY")  # for Flask-WTF CSRF protection
+LOG_KEY = os.environ.get("LOG_KEY")
