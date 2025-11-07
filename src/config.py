@@ -15,7 +15,7 @@ if not check_storage:
 
 # Flask App data
 PORT = 8081
-DEBUG_MODE = True
+DEBUG_MODE = False
 if DEBUG_MODE:
     HOST = "localhost"
 else:
@@ -23,4 +23,4 @@ else:
 STATIC_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/static")
 TEMPLATE_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/templates")
 SECRET_KEY = os.environ.get("SECRET_KEY")  # for Flask-WTF CSRF protection
-LOG_KEY = os.environ.get("LOG_KEY")
+LOG_KEY = os.environ.get("LOG_KEY")  # for logging sensitive data masking
