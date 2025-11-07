@@ -4,9 +4,11 @@ version = "0.1.0"
 description = "home work for robotdreams"
 requires-python = ">=3.12"
 dependencies = [
+    "asgiref>=3.10.0",
     "fastavro>=1.12.1",
     "flask>=3.1.2",
     "flask-wtf>=1.2.2",
+    "gunicorn>=23.0.0",
     "python-dotenv>=1.2.1",
     "pytz>=2025.2",
     "requests>=2.32.5",
