@@ -26,3 +26,25 @@ curl -X POST https://sb-homework-rd-og3n9.ondigitalocean.app/v1/api/job -H "Cont
 ```bash
 curl -X POST https://sb-homework-rd-og3n9.ondigitalocean.app/v1/api/job -H "Content-Type: application/json" -d '{"date": "2022-08-10", "to_stg": false}'
 ```
+
+## Running Tests (see tests/README.md for details)
+
+### Run all tests
+```bash
+pytest tests/ -v
+```
+
+### Run with coverage
+```bash
+pytest tests/ --cov=src/flask_app --cov=src/services/jobs --cov-report=term-missing
+```
+
+### Run specific test file
+```bash
+pytest tests/test_flask_app.py -v
+```
+
+### Run specific test
+```bash
+pytest tests/test_flask_app.py::TestCreateApp::test_app_exists -v
+```
