@@ -24,10 +24,16 @@ def job() -> flask_typing.ResponseReturnValue:
     }
     ps: Якщо to_stg=true, то крім JSON створює AVRO-файл у відповідній папці stg.
     --------------------------------------------------------------------------
-    Example response (201 Created):
+    Example response (201 Created) if to_stg=false and data exists:
     {
       "message": "Data retrieved successfully from API for date 2022-08-09",
       "file_path": "/file_storage/raw/sales/2022-08-09/sales_2022-08-09.json"
+    }
+    ---
+    Example response (201 Created) if to_stg=true and data exists:
+    {
+      "message": "Data retrieved successfully from API for date 2022-08-09",
+      "file_path": "/file_storage/stg/sales/2022-08-09/sales_2022-08-09.avro"
     }
     --------------------------------------------------------------------------
     """
