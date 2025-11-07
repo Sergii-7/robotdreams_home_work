@@ -28,4 +28,4 @@ ENV WEB_CONCURRENCY=2 \
     GUNICORN_TIMEOUT=60
 
 # Запуск Gunicorn через uv
-CMD ["uv", "run", "gunicorn", "-b", "0.0.0.0:8081", "src.main:app"]
+CMD ["uv", "run", "gunicorn", "-b", "0.0.0.0:8081", "main:app"]
