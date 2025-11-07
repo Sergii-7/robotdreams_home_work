@@ -17,12 +17,12 @@ curl -X POST http://localhost:8081/v1/api/job -H "Content-Type: application/json
 ```
 
 ## CLOUD TESTING THE FLASK APPLICATION
-### HOST=...
+### HOST=https://sb-homework-rd-og3n9.ondigitalocean.app/
 
 ### Testing the application API in CLOUD with curl commands
 ```bash
-curl -X POST http://localhost:8081/v1/api/job -H "Content-Type: application/json" -d '{"date": "2022-08-10", "to_stg": true}'
+curl -X POST https://sb-homework-rd-og3n9.ondigitalocean.app/v1/api/job -H "Content-Type: application/json" -d '{"date": "2022-08-10", "to_stg": true}'
 ```
 ```bash
-curl -X POST http://localhost:8081/v1/api/job -H "Content-Type: application/json" -d '{"date": "2022-08-10", "to_stg": false}'
+curl -X POST https://sb-homework-rd-og3n9.ondigitalocean.app/v1/api/job -H "Content-Type: application/json" -d '{"date": "2022-08-10", "to_stg": false}'
 ```
