@@ -3,6 +3,7 @@ from flask import typing as flask_typing
 
 from src.flask_app.create_app import app
 from src.flask_app.form import DateReport
+from src.services.jobs.job1.save_sales import save_sales_to_local_disk
 from src.services.loggers.py_logger import get_logger
 
 logger = get_logger(__name__)
@@ -28,23 +29,35 @@ def home():
         "msg_stg": None,
     }
     if form.validate_on_submit():
-        sale_date = form.data.get("sale_date")
-        sale_date_stg = form.data.get("sale_date_stg")
-        print(type(sale_date), str(sale_date))
-        print(type(sale_date_stg), str(sale_date_stg))
-        if sale_date or sale_date_stg:
-            try:
-                # TODO: Виклик бізнес-логіки для отримання JSON файлу
-                json_file = None
-                if json_file:
-                    download_name = f"sales_{sale_date}.json"
-                    return send_file(
-                        path_or_file=json_file, download_name=download_name
-                    )
-                else:
-                    data["msg"] = f"Немає даних за {sale_date}."
-            except Exception as e:
-                msg = str(e)
-                logger.error(f"Error processing date {sale_date}: {msg}")
-                data["msg"] = f"Сталося помилка:<p>{msg}</p>"
+        sale_date, sale_date_stg = form.data.get("sale_date"), form.data.get(
+            "sale_date_stg"
+        )
+        sale_date = sale_date if sale_date else sale_date_stg
+        logger.info(
+            "Form submitted with sale_date=%s, sale_date_stg=%s",
+            sale_date,
+            sale_date_stg,
+        )
+        try:
+            file_ = save_sales_to_local_disk(
+                sale_date, to_stg=True if sale_date_stg else False
+            )
+            format_ = "avro" if sale_date_stg else "json"
+            if file_:
+                return send_file(
+                    path_or_file=file_,
+                    as_attachment=True,
+                    download_name=f"sales_{sale_date}.{format_}",
+                    mimetype=f"application/{format_}",
+                )
+            else:
+                data["msg" if format_ == "json" else "msg_stg"] = (
+                    f"Немає даних за {sale_date}."
+                )
+        except Exception as e:
+            msg = str(e)
+            logger.error(f"Error processing date {sale_date}: {msg}")
+            data["msg_stg" if sale_date_stg else "msg"] = (
+                f"Сталося помилка:<p>{msg}</p>"
+            )
     return render_template(template_name_or_list="index.html", data=data)

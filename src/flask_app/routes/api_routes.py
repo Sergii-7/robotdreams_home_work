@@ -73,5 +73,5 @@ def job1() -> flask_typing.ResponseReturnValue:
     return jsonify({"message": "Data retrieved successfully from API"}), 201
 
 
-# відключаємо CSRF для view (робимо після визначення функції)
+# відключаємо CSRF
 csrf.exempt(job1)

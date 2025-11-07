@@ -1,3 +1,4 @@
+import time
 from datetime import date
 from typing import Any, Dict, List, Optional
 
@@ -46,6 +47,7 @@ class APITool:
                 break
             all_data.extend(data)
             page += 1
+            time.sleep(0.2)  # To avoid hitting rate limits
         return all_data
 
     def run(self, date_: date, raw_dir: Optional[str] = None):

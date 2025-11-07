@@ -24,7 +24,7 @@ VOLUME ["/app/src/db"]
 EXPOSE 8081
 
 # Запуск стартового скрипта
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+# COPY start.sh /app/start.sh
+# RUN chmod +x /app/start.sh
 
 CMD ["./start.sh"]
