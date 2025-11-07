@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request, send_file
+from flask import flash, jsonify, render_template, request, send_file
 from flask import typing as flask_typing
 
 from src.flask_app.create_app import app
@@ -19,19 +19,12 @@ def health_check() -> flask_typing.ResponseReturnValue:
 def home():
     """Main page to getting the Excel file."""
     ip_address = request.headers.get("X-Forwarded-For") or request.remote_addr
-    logger.info(msg=f"ipAddress={ip_address}: '/'")
+    logger.info(f"ipAddress={ip_address}")
     form = DateReport()
-    data = {
-        "title": "SB",
-        "page": "home",
-        "form": form,
-        "msg": None,
-        "msg_stg": None,
-    }
+    data = {"title": "SB", "page": "home", "form": form}
     if form.validate_on_submit():
-        sale_date, sale_date_stg = form.data.get("sale_date"), form.data.get(
-            "sale_date_stg"
-        )
+        sale_date = form.data.get("sale_date")
+        sale_date_stg = form.data.get("sale_date_stg")
         sale_date = sale_date if sale_date else sale_date_stg
         logger.info(
             "Form submitted with sale_date=%s, sale_date_stg=%s",
@@ -44,6 +37,11 @@ def home():
             )
             format_ = "avro" if sale_date_stg else "json"
             if file_:
+                file_name = file_.split("/")[-1]
+                flash(
+                    f"<h3 style='color: blue';>файл: <p><b>{file_name}</b></p> успішно створено!</h3>",
+                    "success",
+                )
                 return send_file(
                     path_or_file=file_,
                     as_attachment=True,
@@ -51,13 +49,11 @@ def home():
                     mimetype=f"application/{format_}",
                 )
             else:
-                data["msg" if format_ == "json" else "msg_stg"] = (
-                    f"Немає даних за {sale_date}."
+                flash(
+                    f"<h3 style='color: red';>немає даних за <p>{sale_date}</p></h3>",
+                    "danger",
                 )
         except Exception as e:
-            msg = str(e)
-            logger.error(f"Error processing date {sale_date}: {msg}")
-            data["msg_stg" if sale_date_stg else "msg"] = (
-                f"Сталося помилка:<p>{msg}</p>"
-            )
+            logger.error(f"Error processing date {sale_date}: {e}")
+            flash(f"<h3 style='color: red';>сталося помилка: <p>{e}</p></h3>", "error")
     return render_template(template_name_or_list="index.html", data=data)

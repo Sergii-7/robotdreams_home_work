@@ -9,6 +9,18 @@
     <div class="text-center">
         <img src="{{ url_for('static', filename='images/rd.jpg') }}" class="img-fluid" alt="Home Image">
     </div>
+    <div class="text-center">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <br>
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="flash {{ category }}">{{ message | safe }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
     <div class="row">
         <!--Лівий блок-->
         <div class="col-md-6 border">
@@ -25,9 +37,6 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Отримати звіт JSON</button>
                 <div style="color: green; font-weight: bold; margin-top: 10px;"></div>
-                {% if data.msg %}
-                <div style="color: red; font-weight: bold; margin-top: 10px;">{{ data.msg | safe }}</div>
-                {% endif %}
             </form>
             <br>
         </div>
@@ -37,18 +46,15 @@
             <form action="/" method="POST" onsubmit="return validateFormReport()">
                 {{ data.form.csrf_token }}
                 <br>
-                <h3>Замовити звіт з продаж у файлі STG</h3>
+                <h3>Замовити звіт з продаж у файлі AVRO</h3>
                 <br>
                 <div class="form-group">
                     <label for="sale_date_stg"><b>За яку дату:</b></label>
                     <input type="date" class="form-control" id="sale_date_stg" name="sale_date_stg" required>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary">Отримати звіт STG</button>
+                <button type="submit" class="btn btn-primary">Отримати звіт AVRO</button>
                 <div style="color: green; font-weight: bold; margin-top: 10px;"></div>
-                {% if data.msg_stg %}
-                <div style="color: red; font-weight: bold; margin-top: 10px;">{{ data.msg_stg | safe }}</div>
-                {% endif %}
             </form>
             <br>
         </div>
