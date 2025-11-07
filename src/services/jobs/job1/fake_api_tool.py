@@ -50,12 +50,6 @@ class APITool:
             time.sleep(0.2)  # To avoid hitting rate limits
         return all_data
 
-    def run(self, date_: date, raw_dir: Optional[str] = None):
-        """
-        Run the API tool to get sales data for a specific date, and saves data to a local file JSON.
-        """
-        ...
-
 
 def _demo():
     """Demo function to show how to use the APITool class."""
