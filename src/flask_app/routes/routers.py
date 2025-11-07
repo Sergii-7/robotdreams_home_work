@@ -37,11 +37,6 @@ def home():
             )
             format_ = "avro" if sale_date_stg else "json"
             if file_:
-                file_name = file_.split("/")[-1]
-                flash(
-                    f"<h3 style='color: blue';>файл: <p><b>{file_name}</b></p> успішно створено!</h3>",
-                    "success",
-                )
                 return send_file(
                     path_or_file=file_,
                     as_attachment=True,
