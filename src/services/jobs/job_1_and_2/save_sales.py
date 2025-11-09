@@ -8,7 +8,7 @@ from typing import Any, Dict, Iterable, Optional, Union
 import fastavro
 
 from src.config import FILE_STORAGE
-from src.services.jobs.job1.fake_api_tool import APITool
+from src.services.jobs.job_1_and_2.fake_api_tool import APITool
 from src.services.loggers.py_logger import get_logger
 
 logger = get_logger(__name__)

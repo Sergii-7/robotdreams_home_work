@@ -3,7 +3,7 @@ from flask import typing as flask_typing
 
 from src.flask_app.create_app import app
 from src.flask_app.form import DateReport
-from src.services.jobs.job1.save_sales import save_sales_to_local_disk
+from src.services.jobs.job_1_and_2.save_sales import save_sales_to_local_disk
 from src.services.loggers.py_logger import get_logger
 
 logger = get_logger(__name__)

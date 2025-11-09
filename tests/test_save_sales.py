@@ -8,7 +8,7 @@ from unittest.mock import Mock, patch
 import fastavro
 import pytest
 
-from src.services.jobs.job1.save_sales import (
+from src.services.jobs.job_1_and_2.save_sales import (
     SalesExporter,
     save_sales_to_local_disk,
 )
@@ -110,7 +110,7 @@ class TestSalesExporterExport:
         mock_api = Mock()
         mock_api.get_sales.return_value = None
 
-        with patch("src.services.jobs.job1.save_sales.logger") as mock_logger:
+        with patch("src.services.jobs.job_1_and_2.save_sales.logger") as mock_logger:
             exporter = SalesExporter(file_storage=temp_file_storage, api_tool=mock_api)
             exporter.export(for_date=date(2022, 8, 10), to_stg=False)
 
@@ -152,7 +152,7 @@ class TestSalesExporterWriteJson:
 
     def test_write_json_logs_success(self, temp_file_storage, sample_sales_data):
         """Test that _write_json logs success message."""
-        with patch("src.services.jobs.job1.save_sales.logger") as mock_logger:
+        with patch("src.services.jobs.job_1_and_2.save_sales.logger") as mock_logger:
             exporter = SalesExporter(file_storage=temp_file_storage)
             exporter._write_json(for_date=date(2022, 8, 10), records=sample_sales_data)
 
@@ -206,7 +206,7 @@ class TestSalesExporterEnsureSchema:
         if exporter.schema_file.exists():
             exporter.schema_file.unlink()
 
-        with patch("src.services.jobs.job1.save_sales.logger") as mock_logger:
+        with patch("src.services.jobs.job_1_and_2.save_sales.logger") as mock_logger:
             schema = exporter._ensure_schema()
             # Schema should be created
             assert schema is not None
@@ -265,7 +265,7 @@ class TestSalesExporterJsonToAvro:
 
     def test_json_to_avro_logs_success(self, temp_file_storage, sample_sales_data):
         """Test that _json_to_avro logs success message."""
-        with patch("src.services.jobs.job1.save_sales.logger") as mock_logger:
+        with patch("src.services.jobs.job_1_and_2.save_sales.logger") as mock_logger:
             exporter = SalesExporter(file_storage=temp_file_storage)
             json_path = exporter._write_json(
                 for_date=date(2022, 8, 10), records=sample_sales_data
@@ -280,7 +280,7 @@ class TestSalesExporterJsonToAvro:
 class TestSaveSalesToLocalDisk:
     """Test save_sales_to_local_disk wrapper function."""
 
-    @patch("src.services.jobs.job1.save_sales.SalesExporter")
+    @patch("src.services.jobs.job_1_and_2.save_sales.SalesExporter")
     def test_save_sales_to_local_disk_json(self, mock_exporter_class, tmp_path):
         """Test save_sales_to_local_disk for JSON export."""
         mock_exporter = Mock()
@@ -295,7 +295,7 @@ class TestSaveSalesToLocalDisk:
             for_date=date(2022, 8, 10), to_stg=False
         )
 
-    @patch("src.services.jobs.job1.save_sales.SalesExporter")
+    @patch("src.services.jobs.job_1_and_2.save_sales.SalesExporter")
     def test_save_sales_to_local_disk_avro(self, mock_exporter_class, tmp_path):
         """Test save_sales_to_local_disk for AVRO export."""
         mock_exporter = Mock()
@@ -310,7 +310,7 @@ class TestSaveSalesToLocalDisk:
             for_date=date(2022, 8, 10), to_stg=True
         )
 
-    @patch("src.services.jobs.job1.save_sales.SalesExporter")
+    @patch("src.services.jobs.job_1_and_2.save_sales.SalesExporter")
     def test_save_sales_to_local_disk_no_data(self, mock_exporter_class):
         """Test save_sales_to_local_disk when no data is found."""
         mock_exporter = Mock()
@@ -321,8 +321,8 @@ class TestSaveSalesToLocalDisk:
 
         assert result is None
 
-    @patch("src.services.jobs.job1.save_sales.FILE_STORAGE", "/test/storage")
-    @patch("src.services.jobs.job1.save_sales.SalesExporter")
+    @patch("src.services.jobs.job_1_and_2.save_sales.FILE_STORAGE", "/test/storage")
+    @patch("src.services.jobs.job_1_and_2.save_sales.SalesExporter")
     def test_save_sales_uses_config_file_storage(self, mock_exporter_class):
         """Test that save_sales_to_local_disk uses FILE_STORAGE from config."""
         mock_exporter = Mock()

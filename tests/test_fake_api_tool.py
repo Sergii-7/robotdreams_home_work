@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 import requests
 
-from src.services.jobs.job1.fake_api_tool import APITool
+from src.services.jobs.job_1_and_2.fake_api_tool import APITool
 
 
 class TestAPIToolInit:
@@ -28,7 +28,7 @@ class TestAPIToolInit:
 class TestAPIToolGetOnePage:
     """Test APITool.get_one_page method."""
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
     def test_get_one_page_success(self, mock_get):
         """Test successful get_one_page request."""
         mock_response = Mock()
@@ -44,7 +44,7 @@ class TestAPIToolGetOnePage:
         assert "2022-08-09" in str(mock_get.call_args)
         assert "page" in str(mock_get.call_args)
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
     def test_get_one_page_with_different_page(self, mock_get):
         """Test get_one_page with different page number."""
         mock_response = Mock()
@@ -60,7 +60,7 @@ class TestAPIToolGetOnePage:
         call_args = mock_get.call_args
         assert call_args[1]["params"]["page"] == "2"
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
     def test_get_one_page_with_auth_header(self, mock_get):
         """Test that get_one_page includes auth header."""
         mock_response = Mock()
@@ -74,7 +74,7 @@ class TestAPIToolGetOnePage:
         call_args = mock_get.call_args
         assert "Authorization" in call_args[1]["headers"]
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
     def test_get_one_page_raises_http_error(self, mock_get):
         """Test get_one_page when HTTP error occurs."""
         mock_response = Mock()
@@ -91,8 +91,8 @@ class TestAPIToolGetOnePage:
 class TestAPIToolGetSales:
     """Test APITool.get_sales method."""
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_single_page(self, mock_sleep, mock_get):
         """Test get_sales with single page of data."""
         mock_response = Mock()
@@ -110,8 +110,8 @@ class TestAPIToolGetSales:
         assert result[0]["client"] == "Test"
         assert mock_get.call_count >= 1
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_multiple_pages(self, mock_sleep, mock_get):
         """Test get_sales with multiple pages of data."""
         mock_response = Mock()
@@ -132,8 +132,8 @@ class TestAPIToolGetSales:
         assert result[1]["client"] == "Client2"
         assert result[2]["client"] == "Client3"
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_no_data(self, mock_sleep, mock_get):
         """Test get_sales when no data is available."""
         mock_response = Mock()
@@ -146,8 +146,8 @@ class TestAPIToolGetSales:
 
         assert result == []
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_handles_request_exception(self, mock_sleep, mock_get):
         """Test get_sales handles RequestException."""
         mock_response = Mock()
@@ -162,8 +162,8 @@ class TestAPIToolGetSales:
         # Should return empty list or partial data before error
         assert isinstance(result, list)
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_handles_unexpected_exception(self, mock_sleep, mock_get):
         """Test get_sales handles unexpected exceptions."""
         mock_response = Mock()
@@ -177,8 +177,8 @@ class TestAPIToolGetSales:
         # Should handle exception and return what was collected
         assert isinstance(result, list)
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_stops_on_non_list_response(self, mock_sleep, mock_get):
         """Test get_sales stops when response is not a list."""
         mock_response = Mock()
@@ -196,8 +196,8 @@ class TestAPIToolGetSales:
         assert len(result) == 1
         assert result[0]["client"] == "Client1"
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_rate_limiting(self, mock_sleep, mock_get):
         """Test that get_sales implements rate limiting."""
         mock_response = Mock()
@@ -217,8 +217,8 @@ class TestAPIToolGetSales:
         # Check sleep duration is 0.2 seconds
         mock_sleep.assert_called_with(0.2)
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_logs_debug_info(self, mock_sleep, mock_get):
         """Test that get_sales logs debug information."""
         mock_response = Mock()
@@ -226,15 +226,15 @@ class TestAPIToolGetSales:
         mock_response.raise_for_status = Mock()
         mock_get.return_value = mock_response
 
-        with patch("src.services.jobs.job1.fake_api_tool.logger") as mock_logger:
+        with patch("src.services.jobs.job_1_and_2.fake_api_tool.logger") as mock_logger:
             api = APITool()
             api.get_sales(date_=date(2022, 8, 9))
 
             # Should log debug info about fetching pages
             mock_logger.debug.assert_called()
 
-    @patch("src.services.jobs.job1.fake_api_tool.requests.get")
-    @patch("src.services.jobs.job1.fake_api_tool.time.sleep")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.requests.get")
+    @patch("src.services.jobs.job_1_and_2.fake_api_tool.time.sleep")
     def test_get_sales_logs_errors(self, mock_sleep, mock_get):
         """Test that get_sales logs errors."""
         mock_response = Mock()
@@ -243,7 +243,7 @@ class TestAPIToolGetSales:
         )
         mock_get.return_value = mock_response
 
-        with patch("src.services.jobs.job1.fake_api_tool.logger") as mock_logger:
+        with patch("src.services.jobs.job_1_and_2.fake_api_tool.logger") as mock_logger:
             api = APITool()
             api.get_sales(date_=date(2022, 8, 9))
 
