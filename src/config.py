@@ -24,3 +24,9 @@ STATIC_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/static")
 TEMPLATE_FOLDER = os.path.join(PROJECT_ROOT, "flask_app/templates")
 SECRET_KEY = os.environ.get("SECRET_KEY")  # for Flask-WTF CSRF protection
 LOG_KEY = os.environ.get("LOG_KEY")  # for logging sensitive data masking
+
+# Database config
+POSTGRES_DB = os.environ.get("POSTGRES_DB")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+POSTGRES_USER = os.environ.get("POSTGRES_USER")
+POSTGRES_PORT = int(os.environ.get("POSTGRES_PORT", 5432))
